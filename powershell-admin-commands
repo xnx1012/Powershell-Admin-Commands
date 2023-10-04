@@ -1,0 +1,2 @@
+#locate files based on keyword
+Get-ChildItem -Path "C:\Path\To\Search" -Recurse -File | Where-Object { $_ | Select-String -Pattern "keyword" } | ForEach-Object { $_.FullName }
