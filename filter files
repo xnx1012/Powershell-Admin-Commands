@@ -1,2 +1,6 @@
 #locate files based on keyword
 Get-ChildItem -Path "C:\Path\To\Search" -Recurse -File | Where-Object { $_ | Select-String -Pattern "keyword" } | ForEach-Object { $_.FullName }
+
+#locate service based on keyword
+Get-Service | Where-Object { $_.Status -eq 'Running' -and ($_ | Select-Object -ExpandProperty DisplayName) -like '*keyword*' -or ($_ | Select-Object -ExpandProperty Description) -like '*keyword*' }
+
