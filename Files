@@ -4,3 +4,5 @@ Get-ChildItem -Path "C:\Path\To\Search" -Recurse -File | Where-Object { $_ | Sel
 #locate service based on keyword
 Get-Service | Where-Object { $_.Status -eq 'Running' -and ($_ | Select-Object -ExpandProperty DisplayName) -like '*keyword*' -or ($_ | Select-Object -ExpandProperty Description) -like '*keyword*' }
 
+#Organise files in current directory based on the extension
+Get-ChildItem -File | ForEach-Object { $ext = $_.Extension.TrimStart('.'); if ($ext -eq '') { $ext = 'NoExtension' }; $folder = $ext; if (!(Test-Path $folder)) { New-Item -ItemType Directory -Name $folder }; Move-Item $_.FullName -Destination $folder }
